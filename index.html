@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo de Produtos</title>
     <link rel="stylesheet" href="css/foundation.css" />
+    <link rel="stylesheet" href="css/main.css" />
     <script src="js/vendor/modernizr.js"></script>
   </head>
   <body>
@@ -40,8 +41,14 @@
 
         <div class="row">
           <div class="large-12 columns">
+            <h2>{{ctrl.exibeNomeCategoria()}}</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
             <div class="row">
-              <div class="large-4 small-6 columns" ng-repeat="produto in ctrl.produtosFiltrados">
+              <div class="large-4 small-6 columns container-produto" ng-repeat="produto in ctrl.produtosFiltrados | orderBy: 'nome' ">
                 <img ng-src="{{produto.imagens[0]}}">
                 <div class="panel">
                   <h5>{{produto.nome}}</h5>
