@@ -2,6 +2,7 @@ angular.module('catalogoProdutos', [])
   .controller('ProdutosController', function() {
     var self = this;
 
+    self.produtoSelecionado = undefined;
     self.categoriaSelecionada = 'Todos';
     self.categorias = ['Todos', 'Smartphones', 'TVs', 'Games'];
 
@@ -23,7 +24,6 @@ angular.module('catalogoProdutos', [])
           preco: 1499,
           imagens: [
               'img/xperia.jpg',
-              'img/xperia2.jpg',
               'img/xperia3.jpg'
           ]
       },
@@ -128,4 +128,28 @@ angular.module('catalogoProdutos', [])
         return 'Exibindo produtos da categoria ' + self.categoriaSelecionada;
       }
     }
+
+    self.selecionarProduto = function(produto) {
+      self.produtoSelecionado = produto;
+    }
+
+    self.currentIndex = 0;
+
+    self.setCurrentSlideIndex = function (index) {
+        self.currentIndex = index;
+    };
+
+    self.isCurrentSlideIndex = function (index) {
+        return self.currentIndex === index;
+    };
+
+    self.prevSlide = function ($event) {
+        self.currentIndex = (self.currentIndex < self.produtoSelecionado.imagens.length - 1) ? ++self.currentIndex : 0;
+        $event.preventDefault();
+    };
+
+    self.nextSlide = function ($event) {
+        $event.preventDefault();
+        self.currentIndex = (self.currentIndex > 0) ? --self.currentIndex : self.produtoSelecionado.imagens.length - 1;
+    };
   });

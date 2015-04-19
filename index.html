@@ -6,6 +6,7 @@
     <title>Catálogo de Produtos</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/slider.css" />
     <script src="js/vendor/modernizr.js"></script>
   </head>
   <body>
@@ -48,23 +49,54 @@
         <div class="row">
           <div class="large-12 columns">
             <div class="row">
-              <div class="large-4 small-6 columns container-produto" ng-repeat="produto in ctrl.produtosFiltrados | orderBy: 'nome' ">
-                <img ng-src="{{produto.imagens[0]}}">
-                <div class="panel">
-                  <h5>{{produto.nome}}</h5>
-                  <h6 class="subheader">{{produto.preco | currency}}</h6>
+              <a href="#" data-reveal-id="modalProduto">
+                <div class="large-4 small-6 columns container-produto" ng-repeat="produto in ctrl.produtosFiltrados | orderBy: 'nome' "
+                ng-click="ctrl.selecionarProduto(produto)">
+                  <img ng-src="{{produto.imagens[0]}}">
+                  <div class="panel">
+                    <h5>{{produto.nome}}</h5>
+                    <h6 class="subheader">{{produto.preco | currency : 'R$ '}}</h6>
+                  </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
+
+      <div id="modalProduto" class="reveal-modal small" style="width: 31%" data-reveal aria-labelledby="tituloModal" aria-hidden="true" role="dialog">
+        <h4 id="tituloModal">{{ctrl.produtoSelecionado.nome}}</h4>
+        <p>{{ctrl.produtoSelecionado.descricao}}</p>
+
+        <div class="container slider">
+          <img ng-repeat="imagem in ctrl.produtoSelecionado.imagens" class="slide" ng-src="{{imagem}}" ng-hide="!ctrl.isCurrentSlideIndex($index)">
+
+          <a class="arrow prev" href="#" ng-click="ctrl.nextSlide($event)"></a>
+          <a class="arrow next" href="#" ng-click="ctrl.prevSlide($event)"></a>
+          <nav class="nav">
+            <div class="wrapper">
+                <ul class="dots">
+                    <li class="dot" ng-repeat="imagem in ctrl.produtoSelecionado.imagens">
+                        <a href="#" ng-class="{'active':ctrl.isCurrentSlideIndex($index)}"
+                          ng-click="ctrl.setCurrentSlideIndex($index);">{{imagem}}</a></li>
+                </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div>
+          Preço: {{ctrl.produtoSelecionado.preco | currency : 'R$ '}}
+        </div>
+        
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+      </div>
     </div>
 
+    <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/angular.js"></script>
     <script src="js/products/products.controller.js"></script>
-    <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
     <script>
       $(document).foundation();
     </script>
