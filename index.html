@@ -64,9 +64,11 @@
         </div>
       </div>
 
-      <div id="modalProduto" class="reveal-modal small" style="width: 31%" data-reveal aria-labelledby="tituloModal" aria-hidden="true" role="dialog">
+      <div id="modalProduto" class="reveal-modal small" data-reveal aria-labelledby="tituloModal" aria-hidden="true" role="dialog">
         <h4 id="tituloModal">{{ctrl.produtoSelecionado.nome}}</h4>
         <p>{{ctrl.produtoSelecionado.descricao}}</p>
+        <p>Categoria: {{ctrl.produtoSelecionado.categoria}}</p>
+        <p>Fabricante: {{ctrl.produtoSelecionado.fabricante}}</p>
 
         <div class="container slider">
           <img ng-repeat="imagem in ctrl.produtoSelecionado.imagens" class="slide" ng-src="{{imagem}}" ng-hide="!ctrl.isCurrentSlideIndex($index)">

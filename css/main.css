@@ -7,3 +7,18 @@
 .container-produto img {
 	margin-bottom: 2em;
 }
+
+#modalProduto {
+	text-align: center;	
+}
+
+#modalProduto .slider {
+	display: inline-block;
+}
+
+@media only screen and (max-width: 1050px) {
+    #modalProduto .slider {
+			visibility: hidden;
+			height: 100%;
+		}
+}
